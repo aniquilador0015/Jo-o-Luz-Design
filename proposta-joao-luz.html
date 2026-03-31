@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proposta de Projeto — João Luz</title>
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #000000;
+      --white: #FFFFFF;
+      --gray: #F5F5F5;
+      --mid-gray: #E0E0E0;
+      --text-secondary: #666666;
+      --font: 'Switzer', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--white);
+      color: var(--black);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    section { padding: 100px 0; }
+    section + section { border-top: 1px solid var(--mid-gray); }
+
+    /* ── TYPOGRAPHY ── */
+    h1 { font-size: clamp(40px, 8vw, 64px); font-weight: 600; line-height: 1.05; letter-spacing: -0.03em; }
+    h2 { font-size: clamp(26px, 4vw, 36px); font-weight: 600; line-height: 1.15; letter-spacing: -0.02em; }
+    h3 { font-size: clamp(18px, 3vw, 24px); font-weight: 500; line-height: 1.3; letter-spacing: -0.01em; }
+    p  { font-size: 16px; line-height: 1.75; color: #333; }
+
+    .label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      display: block;
+    }
+
+    /* ── HEADER / HERO ── */
+    .hero {
+      padding: 120px 0 100px;
+      border-bottom: 1px solid var(--mid-gray);
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 48px;
+    }
+
+    .hero-eyebrow span {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    .hero-eyebrow-line {
+      width: 40px;
+      height: 1px;
+      background: var(--mid-gray);
+    }
+
+    .hero h1 { margin-bottom: 32px; }
+
+    .hero-sub {
+      font-size: 20px;
+      line-height: 1.6;
+      color: #444;
+      max-width: 540px;
+      margin-bottom: 48px;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .hero-meta-item { }
+    .hero-meta-item .key {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+    .hero-meta-item .val {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--black);
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .about-grid .sticky-col { position: sticky; top: 40px; }
+    .about-grid p + p { margin-top: 20px; }
+
+    /* ── CONCEPT BLOCK ── */
+    .concept-block {
+      background: var(--gray);
+      padding: 56px;
+      margin-top: 48px;
+    }
+
+    .concept-block p {
+      font-size: 20px;
+      line-height: 1.65;
+      color: var(--black);
+      max-width: 600px;
+    }
+
+    /* ── DIFFERENCE ── */
+    .diff-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 48px;
+    }
+
+    .diff-card {
+      background: var(--gray);
+      padding: 48px 40px;
+    }
+
+    .diff-card h3 { margin-bottom: 8px; }
+    .diff-card .sub {
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+
+    /* ── METHOD ── */
+    .method-intro { margin-bottom: 64px; }
+    .method-intro p { font-size: 18px; line-height: 1.7; max-width: 560px; }
+
+    .steps { display: flex; flex-direction: column; gap: 2px; }
+
+    .step {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 40px;
+      background: var(--gray);
+      padding: 40px 40px 40px 0;
+      align-items: start;
+      transition: background 0.2s ease;
+    }
+
+    .step:hover { background: var(--black); }
+    .step:hover .step-num,
+    .step:hover h3,
+    .step:hover p { color: var(--white); }
+    .step:hover .step-detail-item { border-color: #333; }
+    .step:hover .step-detail-item .dk { color: #aaa; }
+
+    .step-num {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      padding-left: 40px;
+      padding-top: 6px;
+      transition: color 0.2s;
+    }
+
+    .step-body { }
+    .step-body h3 { margin-bottom: 12px; transition: color 0.2s; }
+    .step-body p  { margin-bottom: 24px; transition: color 0.2s; }
+
+    .step-details { display: flex; flex-direction: column; gap: 0; }
+
+    .step-detail-item {
+      border-top: 1px solid var(--mid-gray);
+      padding: 12px 0;
+      transition: border-color 0.2s;
+    }
+
+    .step-detail-item .dk {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+      transition: color 0.2s;
+    }
+
+    .step-detail-item .dv {
+      font-size: 14px;
+      line-height: 1.5;
+      transition: color 0.2s;
+    }
+
+    /* ── DIAMOND ── */
+    .diamond-section { text-align: left; }
+
+    .diamond-track {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-top: 48px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+    }
+
+    .diamond-node {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .diamond-dot {
+      width: 48px;
+      height: 48px;
+      background: var(--black);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .diamond-dot svg { width: 18px; height: 18px; fill: var(--white); }
+
+    .diamond-label {
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    .diamond-arrow {
+      flex: 1;
+      height: 1px;
+      background: var(--mid-gray);
+      min-width: 40px;
+      position: relative;
+      top: -18px;
+    }
+
+    /* ── PLANS ── */
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 48px;
+    }
+
+    .plan {
+      padding: 48px 36px;
+      background: var(--gray);
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      position: relative;
+    }
+
+    .plan.featured {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .plan.featured .plan-tag { background: var(--white); color: var(--black); }
+    .plan.featured p { color: #bbb; }
+    .plan.featured .plan-includes .include-item { color: var(--white); border-color: #333; }
+    .plan.featured .plan-name { color: var(--white); }
+
+    .plan-tag {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 600;
+      background: var(--black);
+      color: var(--white);
+      padding: 5px 10px;
+      align-self: flex-start;
+    }
+
+    .plan-name { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; }
+
+    .plan p { font-size: 14px; line-height: 1.65; }
+
+    .plan-includes { display: flex; flex-direction: column; gap: 0; }
+
+    .include-item {
+      font-size: 14px;
+      padding: 10px 0;
+      border-top: 1px solid var(--mid-gray);
+      color: #333;
+    }
+
+    .include-item::before { content: "— "; color: var(--text-secondary); }
+
+    /* ── NEXT STEPS ── */
+    .steps-list { display: flex; flex-direction: column; gap: 2px; margin-top: 48px; }
+
+    .next-step {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      padding: 28px 36px;
+      background: var(--gray);
+    }
+
+    .next-step-num {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      min-width: 24px;
+    }
+
+    .next-step-text { font-size: 16px; font-weight: 500; }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: var(--black);
+      color: var(--white);
+      padding: 120px 0;
+      border-top: none;
+    }
+
+    .cta-section .container { }
+
+    .cta-section .label { color: #666; }
+    .cta-section h2 { color: var(--white); margin-bottom: 24px; max-width: 480px; }
+    .cta-section p  { color: #aaa; max-width: 440px; margin-bottom: 48px; }
+
+    .cta-btn {
+      display: inline-block;
+      background: var(--white);
+      color: var(--black);
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 18px 40px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .cta-btn:hover { background: #E0E0E0; }
+
+    .cta-contact {
+      margin-top: 64px;
+      padding-top: 48px;
+      border-top: 1px solid #222;
+      display: flex;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .contact-item .key {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 4px;
+    }
+
+    .contact-item a,
+    .contact-item .val {
+      font-size: 15px;
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .contact-item a:hover { text-decoration: underline; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      padding: 32px 0;
+      border-top: 1px solid #1a1a1a;
+    }
+
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    footer p {
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      color: #444;
+    }
+
+    /* ── FADE IN ANIMATION ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      section { padding: 72px 0; }
+
+      .hero { padding: 80px 0 72px; }
+
+      .about-grid { grid-template-columns: 1fr; gap: 32px; }
+      .about-grid .sticky-col { position: static; }
+
+      .diff-grid { grid-template-columns: 1fr; }
+      .diff-card { padding: 36px 28px; }
+
+      .step { grid-template-columns: 1fr; gap: 0; padding: 32px; }
+      .step-num { padding-left: 0; padding-top: 0; margin-bottom: 12px; }
+
+      .plans-grid { grid-template-columns: 1fr; }
+
+      .concept-block { padding: 36px 28px; }
+      .concept-block p { font-size: 17px; }
+
+      .cta-section { padding: 80px 0; }
+
+      .cta-contact { gap: 32px; }
+
+      footer .container { flex-direction: column; align-items: flex-start; }
+
+      .hero-meta { gap: 32px; }
+
+      .diamond-track { gap: 0; }
+      .diamond-arrow { min-width: 24px; }
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 0 20px; }
+      h1 { font-size: 36px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="container">
+      <div class="hero-eyebrow fade-in">
+        <div class="hero-eyebrow-line"></div>
+        <span>Proposta de Projeto</span>
+      </div>
+      <h1 class="fade-in">Reformulação<br>de marca e visual.</h1>
+      <p class="hero-sub fade-in">Esta proposta reúne todas as informações sobre o que iremos criar juntos e o porquê de cada etapa desse processo.</p>
+      <div class="hero-meta fade-in">
+        <div class="hero-meta-item">
+          <div class="key">Profissional</div>
+          <div class="val">João Luz</div>
+        </div>
+        <div class="hero-meta-item">
+          <div class="key">Tipo de projeto</div>
+          <div class="val">Branding &amp; Identidade Visual</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <section>
+    <div class="container">
+      <div class="about-grid">
+        <div class="sticky-col">
+          <span class="label fade-in">Sobre mim</span>
+        </div>
+        <div>
+          <p class="fade-in">Oriundo de Jundiaí, formado em marketing e com mais de 5 anos de atuação no mercado criativo, construí minha trajetória na interseção entre design e estratégia. Atualmente, integro o time de uma das principais consultorias de branding do país, a Asoma, com escritório em Alphaville, Barueri.</p>
+          <p class="fade-in">Ao longo desse caminho, desenvolvi marcas que hoje estão presentes em diferentes regiões do Brasil, destacando-se não apenas pela estética, mas pela clareza de posicionamento e consistência na forma como se comunicam.</p>
+          <p class="fade-in">Acredito no design como uma ferramenta de direção, não apenas de expressão. Minha abordagem combina visão holística da comunicação com pensamento estratégico, criando soluções que conectam negócio, percepção e experiência de forma intencional.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CNPJ VS MARCA -->
+  <section>
+    <div class="container">
+      <span class="label fade-in">Empresa vs. Marca</span>
+      <h2 class="fade-in">Existir juridicamente não é o mesmo que existir na mente das pessoas.</h2>
+
+      <div class="diff-grid fade-in" style="margin-top: 48px;">
+        <div class="diff-card">
+          <div class="sub">Existência legal</div>
+          <h3>CNPJ</h3>
+          <p>O CNPJ representa a existência formal de uma empresa. Ele garante que o negócio existe perante o Estado — nos documentos, nos registros, na lei.</p>
+        </div>
+        <div class="diff-card">
+          <div class="sub">Existência percebida</div>
+          <h3>Marca</h3>
+          <p>A marca representa a percepção que as pessoas constroem sobre esse negócio. Ela não existe em documentos — existe na memória, na emoção e na escolha de quem compra.</p>
+        </div>
+      </div>
+
+      <div class="concept-block fade-in">
+        <p>Um existe no papel. O outro existe nas pessoas. Construir uma marca é decidir, intencionalmente, como você quer ser lembrado — antes que o mercado decida por você.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIFERENCIANDO CONCEITOS -->
+  <section>
+    <div class="container">
+      <span class="label fade-in">O que estamos criando</span>
+      <h2 class="fade-in">Um projeto de estruturação de marca. Do início ao fim.</h2>
+
+      <div class="diff-grid fade-in">
+        <div class="diff-card">
+          <div class="sub">Símbolo</div>
+          <h3>Logo</h3>
+          <p>Um símbolo que remete a alguma marca — seja um programa, produto, empresa ou personagem.</p>
+        </div>
+        <div class="diff-card">
+          <div class="sub">Sistema completo</div>
+          <h3>Identidade visual</h3>
+          <p>Um sistema gráfico composto por símbolos, cores, tipografia, padrões e outros elementos que criam pregnância e a percepção desejada. É por isso que empresas de todo porte investem em design todos os anos.</p>
+        </div>
+      </div>
+
+      <div class="concept-block fade-in">
+        <p>Mais do que uma logo, a identidade visual busca criar impacto duradouro e transmitir a percepção desejada da marca.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MÉTODO -->
+  <section>
+    <div class="container">
+      <span class="label fade-in">O método luz</span>
+      <div class="method-intro">
+        <h2 class="fade-in">Vamos tirar esse projeto da escuridão das nossas mentes e dar luz às ideias.</h2>
+        <p class="fade-in" style="margin-top: 24px;">Um processo estruturado em 6 etapas que garante profundidade estratégica e resultado visual preciso.</p>
+      </div>
+
+      <div class="steps">
+
+        <div class="step fade-in">
+          <div class="step-num">01</div>
+          <div class="step-body">
+            <h3>Imersão</h3>
+            <p>O início do projeto. Mergulho no universo do negócio para compreender necessidades, objetivos e tudo que é relevante.</p>
+            <div class="step-details">
+              <div class="step-detail-item">
+                <div class="dk">Pré-briefing</div>
+                <div class="dv">Formulário com perguntas simples sobre sua trajetória profissional.</div>
+              </div>
+              <div class="step-detail-item">
+                <div class="dk">Reunião de imersão</div>
+                <div class="dv">Online ou presencial — duas horas para alinhar tudo sobre o seu negócio.</div>
+              </div>
+              <div class="step-detail-item">
+                <div class="dk">Debriefing</div>
+                <div class="dv">Revisão de tudo que conversamos com adições de informações complementares.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step fade-in">
+          <div class="step-num">02</div>
+          <div class="step-body">
+            <h3>Descoberta</h3>
+            <p>Momento de pesquisa e análise. Entendemos o comportamento e a motivação do público que queremos alcançar.</p>
+            <div class="step-details">
+              <div class="step-detail-item">
+                <div class="dk">Definição demográfica</div>
+                <div class="dv">Quem são os clientes, geração, poder aquisitivo e perfil de consumo.</div>
+              </div>
+              <div class="step-detail-item">
+                <div class="dk">Criação de persona</div>
+                <div class="dv">Um perfil fictício baseado em dados reais sobre os clientes da marca.</div>
+              </div>
+              <div class="step-detail-item">
+                <div class="dk">Benchmark</div>
+                <div class="dv">Referências de mercado para selecionar o que nos atrai e replicar estrategicamente.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step fade-in">
+          <div class="step-num">03</div>
+          <div class="step-body">
+            <h3>Criação visual</h3>
+            <p>Com o projeto de marca concluído e todas as informações alinhadas, traduzimos a estratégia em identidade visual. É aqui que selecionamos cores, tipografia, elementos e desenhamos o logo.</p>
+          </div>
+        </div>
+
+        <div class="step fade-in">
+          <div class="step-num">04</div>
+          <div class="step-body">
+            <h3>Apresentação</h3>
+            <p>O momento pelo qual tanto esperamos. Sentamos juntos — presencialmente ou online — para ver o resultado e fazer observações. Com aprovação, avançamos para os entregáveis restantes.</p>
+          </div>
+        </div>
+
+        <div class="step fade-in">
+          <div class="step-num">05</div>
+          <div class="step-body">
+            <h3>Refinamento</h3>
+            <p>Realizamos as alterações necessárias ou refinamentos para tornar o projeto mais assertivo e aplicável. Após o refinamento, envio para aprovação final.</p>
+            <div class="step-details">
+              <div class="step-detail-item"><div class="dv">Revisão</div></div>
+              <div class="step-detail-item"><div class="dv">Ajustes</div></div>
+              <div class="step-detail-item"><div class="dv">Aprovação</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step fade-in">
+          <div class="step-num">06</div>
+          <div class="step-body">
+            <h3>Entrega</h3>
+            <p>Preparamos os arquivos, materiais e orientações para ativar a marca. Os arquivos são enviados em uma pasta no Drive com um termo de fechamento confirmando que tudo foi entregue.</p>
+            <div class="step-details">
+              <div class="step-detail-item">
+                <div class="dk">Possíveis materiais</div>
+                <div class="dv">Cartão de visitas, Linktree, Timbrado A4, Capas para destaques do Instagram e outros solicitados.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- DUPLO DIAMANTE -->
+  <section class="diamond-section">
+    <div class="container">
+      <span class="label fade-in">Processo criativo</span>
+      <h2 class="fade-in">Criação metódica que evita erros e atrasos.</h2>
+      <div class="diamond-track fade-in">
+        <div class="diamond-node">
+          <div class="diamond-dot">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/></svg>
+          </div>
+          <div class="diamond-label">Ideia</div>
+        </div>
+        <div class="diamond-arrow"></div>
+        <div class="diamond-node">
+          <div class="diamond-dot">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/></svg>
+          </div>
+          <div class="diamond-label">Possibilidades</div>
+        </div>
+        <div class="diamond-arrow"></div>
+        <div class="diamond-node">
+          <div class="diamond-dot">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/></svg>
+          </div>
+          <div class="diamond-label">Filtro</div>
+        </div>
+        <div class="diamond-arrow"></div>
+        <div class="diamond-node">
+          <div class="diamond-dot">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/></svg>
+          </div>
+          <div class="diamond-label">Lapidação</div>
+        </div>
+        <div class="diamond-arrow"></div>
+        <div class="diamond-node">
+          <div class="diamond-dot">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/></svg>
+          </div>
+          <div class="diamond-label">Resultado</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLANOS -->
+  <section>
+    <div class="container">
+      <span class="label fade-in">Investimento</span>
+      <h2 class="fade-in">Escolha o plano que se encaixa nas suas necessidades.</h2>
+
+      <div class="plans-grid fade-in">
+
+        <div class="plan">
+          <div class="plan-tag">Essencial</div>
+          <div class="plan-name">Plano Essencial</div>
+          <p>Indicado para pequenas empresas e empreendedoras que precisam de suporte básico.</p>
+          <div class="plan-includes">
+            <div class="include-item">Identidade visual</div>
+            <div class="include-item">Logo em PNG, JPG, AI, EPS e PDF</div>
+            <div class="include-item">Kit de entregáveis solicitados</div>
+          </div>
+        </div>
+
+        <div class="plan featured">
+          <div class="plan-tag">Destaque</div>
+          <div class="plan-name">Plano Criativo</div>
+          <p>Para empresas com volume considerável de demandas mensais que querem se destacar no mercado.</p>
+          <div class="plan-includes">
+            <div class="include-item">Projeto de marca</div>
+            <div class="include-item">Identidade visual</div>
+            <div class="include-item">Logo em PNG, JPG, AI, EPS e PDF</div>
+            <div class="include-item">Kit de entregáveis solicitados</div>
+            <div class="include-item">Imagens criadas com IA em alta qualidade</div>
+          </div>
+        </div>
+
+        <div class="plan">
+          <div class="plan-tag">Completo</div>
+          <div class="plan-name">Plano Iluminado</div>
+          <p>Para empreendedores que precisam de suporte completo com guia de identidade visual.</p>
+          <div class="plan-includes">
+            <div class="include-item">Projeto de marca</div>
+            <div class="include-item">Identidade visual</div>
+            <div class="include-item">Logo em PNG, JPG, AI, EPS e PDF</div>
+            <div class="include-item">Kit de entregáveis solicitados</div>
+            <div class="include-item">Imagens criadas com IA em alta qualidade</div>
+            <div class="include-item">Guia de uso da identidade visual</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PRÓXIMOS PASSOS -->
+  <section>
+    <div class="container">
+      <span class="label fade-in">Próximos passos</span>
+      <h2 class="fade-in">Escolhendo o plano, fechamos essa parceria assim.</h2>
+
+      <div class="steps-list fade-in">
+        <div class="next-step">
+          <div class="next-step-num">01</div>
+          <div class="next-step-text">Envio dos dados para documentação</div>
+        </div>
+        <div class="next-step">
+          <div class="next-step-num">02</div>
+          <div class="next-step-text">Assinatura do contrato digital</div>
+        </div>
+        <div class="next-step">
+          <div class="next-step-num">03</div>
+          <div class="next-step-text">Preenchimento do formulário prévio</div>
+        </div>
+        <div class="next-step">
+          <div class="next-step-num">04</div>
+          <div class="next-step-text">Marcar a data da reunião de imersão</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <span class="label">Encerramento</span>
+      <h2>Estou animado para criarmos esse projeto juntos.</h2>
+      <p>Caso tenha ficado alguma dúvida em relação ao método ou formas de pagamento, estou disponível para conversarmos. Também é possível adaptar e personalizar um plano caso tenham surgido novas demandas.</p>
+      <a href="https://wa.me/message/7S5TBQ4CGSXFO1" target="_blank" class="cta-btn">Vamos começar →</a>
+
+      <div class="cta-contact">
+        <div class="contact-item">
+          <div class="key">Telefone</div>
+          <a href="tel:+5511947986188" class="val">11 94798-6188</a>
+        </div>
+        <div class="contact-item">
+          <div class="key">E-mail</div>
+          <a href="mailto:joaoluzdesign@gmail.com" class="val">joaoluzdesign@gmail.com</a>
+        </div>
+        <div class="contact-item">
+          <div class="key">Instagram</div>
+          <a href="https://instagram.com/joaoluzdesign" target="_blank" class="val">@joaoluzdesign</a>
+        </div>
+        <div class="contact-item">
+          <div class="key">WhatsApp</div>
+          <a href="https://wa.me/message/7S5TBQ4CGSXFO1" target="_blank" class="val">Fale pelo WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p>© João Luz Design</p>
+      <p>Proposta de Reformulação de Marca e Visual</p>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-in').forEach((el, i) => {
+      el.style.transitionDelay = `${(i % 4) * 80}ms`;
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
